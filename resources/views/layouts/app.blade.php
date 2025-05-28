@@ -28,7 +28,7 @@
                         </span>
                         <div class="text-left leading-tight">
                             <p class="text-sm font-semibold text-gray-800">
-                                {{ Auth::user()->name }}
+                                {{ Auth::user()->nama_panggilan }}
                             </p>
                             <p class="text-xs text-gray-500">
                                 {{ Auth::user()->email }}
