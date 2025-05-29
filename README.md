@@ -1,4 +1,4 @@
-# Tugas Besar - Web Application Development Project
+# Tugas Besar - Web Application Development
 
 Ini adalah repository Laravel untuk aplikasi Forum Aspirasi dan Diskusi Umum Mahasiswa.  
 Aplikasi ini mendukung fitur pengelolaan profil, pengiriman aspirasi, diskusi umum, berita, dan komentar .
