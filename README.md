@@ -1,9 +1,9 @@
-# TB_WAD_SI4708_K1 - Web Application Development Project
+# Tugas Besar - Web Application Development Project
 
 Ini adalah repository Laravel untuk aplikasi Forum Aspirasi dan Diskusi Umum Mahasiswa.  
 Aplikasi ini mendukung fitur pengelolaan profil, pengiriman aspirasi, diskusi umum, berita, dan komentar .
 
-Anggota Kelompok 1:
+Anggota Kelompok 1 SI4708:
 1. Ahmad Akmal Amran      - 102022300010
 2. Rahmania Anggraini     - 102022300034
 3. Raafi Naufal Fadhillah - 102022300053
