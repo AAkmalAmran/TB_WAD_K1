@@ -1,4 +1,4 @@
-@extends('layouts.app') {{-- Pastikan ini mengacu ke layout dasar Anda --}}
+@extends('layouts.app')
 
 @section('content')
 <div class="container mx-auto p-4">
@@ -12,7 +12,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div>
                 <p class="text-gray-600 text-sm font-semibold mb-1">Pengirim:</p>
-                <p class="text-gray-800">{{ $aspirasi->mahasiswa_nama }} (NIM: {{ $aspirasi->mahasiswa_nim }})</p>
+                @if(Auth::check() && Auth::id() === $aspirasi->user_id)
+                    <p class="text-gray-800">{{ $aspirasi->mahasiswa_nama }} (NIM: {{ $aspirasi->mahasiswa_nim }})</p>
+                @else
+                    <p class="text-gray-800">Anonim</p>
+                @endif
             </div>
             <div>
                 <p class="text-gray-600 text-sm font-semibold mb-1">Ditujukan Kepada:</p>

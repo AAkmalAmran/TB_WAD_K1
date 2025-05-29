@@ -29,7 +29,7 @@
 
 <div class="bg-white p-6 rounded shadow mb-4">
     @auth
-        <h1 class="text-2xl font-semibold mb-2">Selamat datang, {{ Auth::user()->name }}!</h1>
+        <h1 class="text-2xl font-semibold mb-2">Selamat datang, {{ Auth::user()->nama_panggilan }}!</h1>
 
         @if (session('status'))
             <div class="bg-green-100 text-green-800 p-2 rounded mb-4">

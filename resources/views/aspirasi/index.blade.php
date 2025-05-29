@@ -33,13 +33,18 @@
                     </div>
                     <div class="mt-4 text-sm text-gray-600">
                         <p class="mb-1">
-                            **Oleh:** {{ $item_aspirasi->mahasiswa_nama }} (NIM: {{ $item_aspirasi->mahasiswa_nim }})
+                            Oleh: 
+                            @if(Auth::check() && Auth::id() === $item_aspirasi->user_id)
+                                {{ $item_aspirasi->mahasiswa_nama }} (NIM: {{ $item_aspirasi->mahasiswa_nim }})
+                            @else
+                                Anonim
+                            @endif
                         </p>
                         <p class="mb-1">
-                            **Untuk:** <span class="font-medium text-blue-700">{{ $item_aspirasi->himpunan->nama ?? 'Himpunan Tidak Ditemukan' }}</span>
+                            Untuk: <span class="font-medium text-blue-700">{{ $item_aspirasi->himpunan->nama ?? 'Himpunan Tidak Ditemukan' }}</span>
                         </p>
                         <p class="mb-1">
-                            **Status:** <span class="font-medium
+                            Status: <span class="font-medium
                             @if($item_aspirasi->status == 'pending') text-yellow-600
                             @elseif($item_aspirasi->status == 'diproses') text-blue-600
                             @elseif($item_aspirasi->status == 'diterima') text-green-600

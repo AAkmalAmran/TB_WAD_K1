@@ -14,13 +14,13 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'nama_panjang' => 'Admin Sistem Informasi',
-            'nama_panggilan' => 'Admin SI',   
-            'email' => 'admin1@gmail.com',
+            'nama_panjang' => 'Admin HMSI',
+            'nama_panggilan' => 'HMSI',   
+            'email' => 'hmsi@gmail.com',
             'nim' => '0000000001',
             'fakultas' => 'Fakultas Rekayasa Industri',          
             'jurusan' => 'Sistem Informasi',      
-            'password' => Hash::make('admin1'),
+            'password' => Hash::make('admin123'),
             'email_verified_at' => now(),            
             'role' => 'admin',
         ]);

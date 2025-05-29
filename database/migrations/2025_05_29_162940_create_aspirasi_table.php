@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('mahasiswa_nim');
             $table->string('mahasiswa_nama')->nullable();
-            $table->foreignId('himpunan_id')->constrained('himpunans'); // Pastikan tabel himpunans sudah ada
+            $table->foreignId('himpunan_id')->constrained('himpunans')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('judul');
             $table->text('konten');
             $table->string('status')->default('pending');
