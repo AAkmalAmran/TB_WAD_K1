@@ -1,7 +1,14 @@
-# TB_WAD_SI4708_K1 - Laravel Project
+# TB_WAD_SI4708_K1 - Web Application Development Project
 
-Ini adalah repository Laravel untuk aplikasi Forum Aspirasi Mahasiswa.  
-Aplikasi ini mendukung fitur autentikasi, pengelolaan profil, pengiriman aspirasi, dan riwayat aspirasi.
+Ini adalah repository Laravel untuk aplikasi Forum Aspirasi dan Diskusi Umum Mahasiswa.  
+Aplikasi ini mendukung fitur pengelolaan profil, pengiriman aspirasi, diskusi umum, berita, dan komentar .
+
+Anggota Kelompok 1:
+1. Ahmad Akmal Amran      - 102022300010
+2. Rahmania Anggraini     - 102022300034
+3. Raafi Naufal Fadhillah - 102022300053
+4. Hanif Irsaddul Fikri   - 102022300072
+5. Annisa Fatimatus Zahro - 102022330350
 
 ---
 
@@ -26,22 +33,16 @@ Aplikasi ini mendukung fitur autentikasi, pengelolaan profil, pengiriman aspiras
 
 ```bash
 git clone https://github.com/username/TB_WAD_SI4708_K1.git
-cd TB_WAD_SI4708_K1
 ```
 
 ### 2. Install Dependency
 
 ```bash
 composer install
-npm install
-npm run build
 ```
 
-### 3. Copy dan Edit File Environment
+### 3. Copy dan Edit File Environment (env)
 
-```bash
-cp .env.example .env
-```
 Edit `.env` sesuai konfigurasi database lokal Anda.
 
 ### 4. Generate Key
@@ -75,7 +76,7 @@ php artisan serve
 ### Membuat Branch Baru
 
 ```bash
-git checkout -b nama-branch-baru
+git checkout nama-branch-baru
 ```
 
 ### Push Branch ke Remote
@@ -86,21 +87,7 @@ git commit -m "Pesan commit"
 git push origin nama-branch-baru
 ```
 
-### Merge Branch ke Main (dari GitHub Pull Request)
-
-1. Push branch ke remote.
-2. Buka repository di GitHub.
-3. Klik "Compare & pull request".
-4. Review dan merge.
-
----
-
 ## Catatan
 
 - Pastikan sudah menjalankan `php artisan storage:link` agar upload foto profil berjalan normal.
 - Untuk development, gunakan database MySQL dan sesuaikan konfigurasi di `.env`.
-- Fitur anonim pada aspirasi: Nama & NIM pengirim hanya terlihat oleh pemilik aspirasi.
-
----
-
-Selamat mengembangkan aplikasi!
