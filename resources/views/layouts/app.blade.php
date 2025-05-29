@@ -16,12 +16,12 @@
         <div>
             @auth
                 <div class="flex items-center space-x-6">
-                    <!-- Tambahan tombol navigasi -->
-                    <a href="" class="text-gray-700 hover:text-blue-600 {{ Request::is('aspirasi') ? 'font-semibold underline' : '' }}">Aspiration</a>
-                    <a href="" class="text-gray-700 hover:text-blue-600 {{ Request::is('forum') ? 'font-semibold underline' : '' }}">Forum</a>
-                    <a href="" class="text-gray-700 hover:text-blue-600 {{ Request::is('profile') ? 'font-semibold underline' : '' }}">Profile</a>
-                    <!-- Akhir tambahan tombol navigasi -->
-
+                    {{-- Rute aspirasi.index adalah untuk menampilkan daftar aspirasi --}}
+                    <a href="{{ route('aspirasi.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('aspirasi*') ? 'font-semibold underline' : '' }}">Aspiration</a>
+                    {{-- Rute forum.show adalah untuk halaman forum --}}
+                    <a href="{{ route('forum.show') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('forum*') ? 'font-semibold underline' : '' }}">Forum</a>
+                    {{-- Rute profile.index adalah untuk halaman profil --}}
+                    <a href="{{ route('profile.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('profile*') ? 'font-semibold underline' : '' }}">Profile</a>
                     <div class="flex items-center space-x-3">
                         <span class="material-icons text-gray-600 text-4xl">
                             account_circle
@@ -56,5 +56,32 @@
     <div class="container mx-auto p-4">
         @yield('content')
     </div>
+
+    {{-- Pesan Sukses/Error --}}
+    @if(session('error') || session('success'))
+        @php
+            $type = session('error') ? 'error' : 'success';
+            $message = session($type);
+            $bgColor = $type === 'error' ? 'bg-red-500' : 'bg-green-500';
+            $id = $type . 'Message';
+            $closeFunction = 'close' . ucfirst($type) . 'Message';
+        @endphp
+
+        <div id="{{ $id }}" class="{{ $bgColor }} text-white p-4 rounded-lg mb-6 relative">
+            <span>{{ $message }}</span>
+            <button class="absolute right-5 text-white font-bold" onclick="{{ $closeFunction }}()">X</button>
+        </div>
+
+        <script>
+            function {{ $closeFunction }}() {
+                document.getElementById('{{ $id }}').classList.add('hidden');
+            }
+
+            setTimeout(function() {
+                var el = document.getElementById('{{ $id }}');
+                if (el) el.classList.add('hidden');
+            }, 5000);
+        </script>
+    @endif
 </body>
 </html>
