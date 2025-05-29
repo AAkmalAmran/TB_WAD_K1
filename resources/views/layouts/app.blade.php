@@ -17,9 +17,9 @@
             @auth
                 <div class="flex items-center space-x-6">
                     <!-- Tambahan tombol navigasi -->
-                    <a href="{{ route('aspirasi.show') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('aspirasi') ? 'font-semibold underline' : '' }}">Aspiration</a>
-                    <a href="{{ route('forum.show') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('forum') ? 'font-semibold underline' : '' }}">Forum</a>
-                    <a href="{{ route('profile.show') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('profile') ? 'font-semibold underline' : '' }}">Profile</a>
+                    <a href="" class="text-gray-700 hover:text-blue-600 {{ Request::is('aspirasi') ? 'font-semibold underline' : '' }}">Aspiration</a>
+                    <a href="" class="text-gray-700 hover:text-blue-600 {{ Request::is('forum') ? 'font-semibold underline' : '' }}">Forum</a>
+                    <a href="" class="text-gray-700 hover:text-blue-600 {{ Request::is('profile') ? 'font-semibold underline' : '' }}">Profile</a>
                     <!-- Akhir tambahan tombol navigasi -->
 
                     <div class="flex items-center space-x-3">
