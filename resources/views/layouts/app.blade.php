@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>U-Voice: Forum diskusi & Aspirasi</title>
+    <title>SeputarTelkom</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('/logo.png') }}" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -21,7 +21,7 @@
                     {{-- Rute forum.show adalah untuk halaman forum --}}
                     <a href="{{ route('forum.show') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('forum*') ? 'font-semibold underline' : '' }}">Forum</a>
                     {{-- Rute profile.index adalah untuk halaman profil --}}
-                    <a href="{{ route('profile.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('profile*') ? 'font-semibold underline' : '' }}">Profile</a>
+                    <a href="{{ route('profile.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('profile') ? 'font-semibold underline' : '' }}">Profile</a>
                     <div class="flex items-center space-x-3">
                         <span class="material-icons text-gray-600 text-4xl">
                             account_circle
@@ -56,32 +56,5 @@
     <div class="container mx-auto p-4">
         @yield('content')
     </div>
-
-    {{-- Pesan Sukses/Error --}}
-    @if(session('error') || session('success'))
-        @php
-            $type = session('error') ? 'error' : 'success';
-            $message = session($type);
-            $bgColor = $type === 'error' ? 'bg-red-500' : 'bg-green-500';
-            $id = $type . 'Message';
-            $closeFunction = 'close' . ucfirst($type) . 'Message';
-        @endphp
-
-        <div id="{{ $id }}" class="{{ $bgColor }} text-white p-4 rounded-lg mb-6 relative">
-            <span>{{ $message }}</span>
-            <button class="absolute right-5 text-white font-bold" onclick="{{ $closeFunction }}()">X</button>
-        </div>
-
-        <script>
-            function {{ $closeFunction }}() {
-                document.getElementById('{{ $id }}').classList.add('hidden');
-            }
-
-            setTimeout(function() {
-                var el = document.getElementById('{{ $id }}');
-                if (el) el.classList.add('hidden');
-            }, 5000);
-        </script>
-    @endif
 </body>
 </html>

@@ -9,37 +9,66 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return 'halaman profile';
+        $user = auth()->user();
+        return view('profile.index', compact('user'));
     }
 
-
-    public function create()
+    public function show()
     {
+        $user = auth()->user();
+        return view('profile.show', compact('user'));
+    }
+
+    public function edit()
+    {
+        $user = auth()->user();
+        return view('profile.edit', compact('user'));
+    }
+
+    public function update(Request $request)
+    {
+        $user = auth()->user();
+
+        $validated = $request->validate([
+            'nama_panjang' => 'required',
+            'nama_panggilan' => 'required',
+            'nim' => 'required',
+            'fakultas' => 'required',
+            'jurusan' => 'required',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // foto opsional
+            // password opsional
+            
+        ]);
         
+        if ($request->hasFile('foto')) {
+            $fotoPath = $request->file('foto')->store('public/foto');
+            $validated['foto'] = str_replace('public/', '', $fotoPath); // Simpan path relatif
+        } else {
+            unset($validated['foto']);
+        }
+
+        if ($request->filled('password')) {
+            $validated['password'] = bcrypt($request->password);
+        } else {
+            unset($validated['password']);
+        }
+
+        $user->update($validated);
+
+        return redirect()->route('profile.index')->with('success', 'Profil berhasil diupdate');
     }
 
-    public function store(Request $request)
+    public function delete()
     {
-       
+        $user = auth()->user();
+        return view('profile.delete', compact('user'));
     }
 
-    public function show($id)
+    public function destroy()
     {
-        return 'halaman profile ' . $id;
-    }
-
-    public function edit($id)
-    {
-        
-    }
-
-    public function update(Request $request, $id)
-    {
-        
-    }
-
-    public function destroy($id)
-    {
-      
+        $user = auth()->user();
+        $user->delete();
+        auth()->logout();
+        return redirect('/')->with('success', 'Akun berhasil dihapus');
     }
 }

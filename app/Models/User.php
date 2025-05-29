@@ -32,6 +32,7 @@ class User extends Authenticatable
         'fakultas',
         'jurusan',
         'password',
+        'foto',
         'role',
     ];    
 
@@ -66,5 +67,9 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(\App\Models\Comment::class);
+    }
+
+    public function aspirasi() {
+        return $this->hasMany(Aspirasi::class);
     }
 }

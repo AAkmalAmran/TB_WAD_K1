@@ -41,14 +41,15 @@ class AspirasiController extends Controller
             'konten' => 'required|string',
         ]);
 
-        // Simpan aspirasi baru
+        // Simpan aspirasi baru dengan relasi ke user
         Aspirasi::create([
-            'mahasiswa_nim' => Auth::user()->nim, // Ambil dari user yang login
-            'mahasiswa_nama' => Auth::user()->name, // Ambil dari user yang login
+            'user_id' => Auth::id(), // Simpan user_id dari user yang login
+            'mahasiswa_nim' => Auth::user()->nim,
+            'mahasiswa_nama' => Auth::user()->nama_panjang, // Sesuaikan field nama di model User
             'himpunan_id' => $request->himpunan_id,
             'judul' => $request->judul,
             'konten' => $request->konten,
-            'status' => 'pending', // Status awal
+            'status' => 'pending',
         ]);
 
         return redirect()->route('aspirasi.index')->with('success', 'Aspirasi berhasil dikirim!');

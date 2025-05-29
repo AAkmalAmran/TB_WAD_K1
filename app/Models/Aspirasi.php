@@ -28,6 +28,7 @@ class Aspirasi extends Model
         'judul', // Judul aspirasi
         'konten', // Isi aspirasi
         'status', // Contoh: 'pending', 'diterima', 'ditolak', 'diproses'
+        'user_id', // ID User yang membuat aspirasi
     ];
 
     /**
@@ -36,6 +37,10 @@ class Aspirasi extends Model
     public function himpunan()
     {
         return $this->belongsTo(Himpunan::class); // Asumsi ada model Himpunan
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 
     // Anda mungkin juga ingin menambahkan relasi ke model User jika ada sistem login
