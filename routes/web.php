@@ -20,27 +20,29 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
 
+//Aspirasi Routes
 Route::get('/aspirasi', [AspirasiController::class, 'index'])->name('aspirasi.show');
 
+//Forum routes
 Route::get('/forum', [ForumController::class, 'index'])->name('forum.show');
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile.show');
 
+
+//Profile routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/{users}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/{profile}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/{profile}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/{profile}', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+//Comment Routes
 Route::middleware(['auth', 'role:admin,mahasiswa'])->group(function () {
     Route::post('/articles/{article}/comments', [CommentController::class, 'store']);
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
 });
 
-/**
-*    - Middleware: `auth` dan `role:admin`
-*    - Prefix URL: `/admin`
-*    - Rute-rute terkait CRUD artikel:
-*        - GET `/articles` → `ArticleController@index` (route name: `admin.index`)
-*        - GET `/articles/create` → `ArticleController@create` (route name: `admin.create`)
-*        - POST `/articles` → `ArticleController@store` (route name: `admin.store`)
-*        - GET `/articles/{article}/edit` → `ArticleController@edit` (route name: `admin.edit`)
-*        - PUT `/articles/{article}` → `ArticleController@update` (route name: `admin.update`)
-*        - DELETE `/articles/{article}` → `ArticleController@destroy` (route name: `admin.destroy`)
-*/
+//Article atau News Routes
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/articles', [ArticleController::class, 'index'])->name('admin.index');
     Route::get('/articles/create', [ArticleController::class, 'create'])->name('admin.create');
