@@ -31,15 +31,11 @@
     <div class="flex flex-col md:flex-row gap-6 justify-center">
         <!-- Kartu Kiri: Avatar & Info Singkat -->
         <div class="bg-white rounded-lg shadow-md p-8 flex flex-col items-center w-full md:w-1/3 border">
-            <img src="{{ $user->foto ? asset('storage/'.$user->foto) : asset('avatar_default.png') }}" alt="Avatar" class="w-32 h-32 rounded-full mb-4 object-cover border">
+            <img src="{{ $user->foto ? asset('storage/public/'.$user->foto) : asset('avatar_default.png') }}" alt="Avatar" class="w-32 h-32 rounded-full mb-4 object-cover border">
             <h2 class="text-xl font-bold mb-1">{{ $user->nama_panggilan }}</h2>
             <p class="text-gray-500 mb-1">{{ $user->nama_panjang }}</p>
             <p class="text-gray-600 mb-1">{{ $user->email }}</p>
             <p class="text-gray-400 text-sm mb-4">{{ $user->jurusan }}, {{ $user->fakultas }}</p>
-            <!-- <div class="flex gap-2">
-                <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded border border-blue-500">Follow</button>
-                <button class="bg-white hover:bg-gray-100 text-blue-500 border border-blue-500 px-4 py-1 rounded">Message</button>
-            </div> -->
         </div>
         <!-- Kartu Kanan: Detail Profil -->
         <div class="bg-white rounded-lg shadow-md p-8 w-full md:w-2/3 flex flex-col justify-between border">
