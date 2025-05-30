@@ -74,9 +74,13 @@ php artisan serve
 ## Workflow Git
 
 ### Membuat Branch Baru
-
 ```bash
-git checkout nama-branch-baru
+git branch nama-branch-baru
+```
+
+### Pindah Branch
+```bash
+git checkout nama-branch
 ```
 
 ### Push Branch ke Remote
