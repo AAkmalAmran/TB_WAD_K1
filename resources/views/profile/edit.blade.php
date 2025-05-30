@@ -75,23 +75,9 @@
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                     @if($user->foto)
-                        <img src="{{ asset('storage/'.$user->foto) }}" alt="Foto Profil" class="w-24 h-24 rounded-full mt-2 object-cover">
+                        <img src="{{ asset('storage/public/'.$user->foto) }}" alt="Foto Profil" class="w-24 h-24 rounded-full mt-2 object-cover">
                     @endif
                 </div>
-                <!-- <div>
-                    <label class="block text-gray-700 mb-2">Email</label>
-                    <input type="email" name="email" value="{{ old('email', $user->email) }}" class="w-full bg-gray-100 rounded-lg p-3 @error('email') border-red-500 @enderror">
-                    @error('email')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
-                </div> -->
-                <!-- <div>
-                    <label class="block text-gray-700 mb-2">Password <span class="text-gray-400 text-xs">(Kosongkan jika tidak ingin mengubah)</span></label>
-                    <input type="password" name="password" class="w-full bg-gray-100 rounded-lg p-3 @error('password') border-red-500 @enderror">
-                    @error('password')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
-                </div> -->
             </div>
             <div class="mt-8 flex justify-end">
                 <a href="{{ route('profile.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-lg font-semibold mr-2">Batal</a>

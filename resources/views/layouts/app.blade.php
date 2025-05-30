@@ -16,15 +16,27 @@
         <div>
             @auth
                 <div class="flex items-center space-x-6">
-                    {{-- Rute aspirasi.index adalah untuk menampilkan daftar aspirasi --}}
-                    <a href="{{ route('aspirasi.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('aspirasi*') ? 'font-semibold underline' : '' }}">Aspiration</a>
-                    {{-- Rute forum.show adalah untuk halaman forum --}}
-                    <a href="{{ route('forum.show') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('forum*') ? 'font-semibold underline' : '' }}">Forum</a>
-                    {{-- Rute profile.index adalah untuk halaman profil --}}
-                    <a href="{{ route('profile.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('profile') ? 'font-semibold underline' : '' }}">Profile</a>
+                    @if(Auth::user()->role === 'mahasiswa')
+                        {{-- Rute aspirasi.index adalah untuk menampilkan daftar aspirasi --}}
+                        <a href="{{ route('aspirasi.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('aspirasi*') ? 'font-semibold underline' : '' }}">Aspiration</a>
+                        {{-- Rute forum.show adalah untuk halaman forum --}}
+                        <a href="{{ route('forum.show') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('forum*') ? 'font-semibold underline' : '' }}">Forum</a>
+                        {{-- Rute profile.index adalah untuk halaman profil --}}
+                        <a href="{{ route('profile.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('profile') ? 'font-semibold underline' : '' }}">Profile</a>
+
+                    @elseif(Auth::user()->role === 'admin')
+                        <a href="{{ route('aspirasi.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('aspirasi*') ? 'font-semibold underline' : '' }}">Aspiration</a>
+                        <a href="{{ route('forum.show') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('forum*') ? 'font-semibold underline' : '' }}">Forum</a>
+                        <a href="{{ route('admin.users.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('admin/users*') ? 'font-semibold underline' : '' }}">Kelola User</a>
+                    @endif
                     <div class="flex items-center space-x-3">
-                        <span class="material-icons text-gray-600 text-4xl">
-                            account_circle
+                            @if(Auth::user()->foto)
+                                <img src="{{ asset('storage/public/' . Auth::user()->foto) }}" alt="Foto Profil" class="w-10 h-10 rounded-full object-cover border">
+                            @else
+                                <span class="material-icons text-gray-600 text-4xl">
+                                    account_circle
+                                </span>
+                            @endif
                         </span>
                         <div class="text-left leading-tight">
                             <p class="text-sm font-semibold text-gray-800">

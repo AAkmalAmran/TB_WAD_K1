@@ -47,11 +47,6 @@ class ProfileController extends Controller
             unset($validated['foto']);
         }
 
-        if ($request->filled('password')) {
-            $validated['password'] = bcrypt($request->password);
-        } else {
-            unset($validated['password']);
-        }
 
         $user->update($validated);
 
