@@ -47,8 +47,13 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-
+// Rute untuk halaman berita
+Route::view('/berita', 'berita.index')->name('berita.index');
+Route::get('/berita', [App\Http\Controllers\BeritaController::class, 'index'])->name('berita.index');
+Route::get('/berita/create', [App\Http\Controllers\BeritaController::class, 'create'])->name('berita.create');
+Route::post('/berita', [App\Http\Controllers\BeritaController::class, 'store'])->name('berita.store');
+Route::get('/berita/{berita}/komentar', [App\Http\Controllers\BeritaController::class, 'komentar'])->name('berita.komentar');
+Route::post('/berita/{berita}/komentar', [App\Http\Controllers\BeritaController::class, 'storeKomentar'])->name('berita.komentar.store');
 
 // ---------------------------------------------------- END GENERAL ROUTE ----------------------------------------------------
 
