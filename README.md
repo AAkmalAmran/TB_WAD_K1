@@ -44,6 +44,7 @@ composer install
 ### 3. Copy dan Edit File Environment (env)
 
 Edit `.env` sesuai konfigurasi database lokal Anda.
+
 Ganti APP_LOCALE=en menjadi APP_LOCALE=id
 
 ### 4. Generate Key
