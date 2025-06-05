@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+// Tidak perlu import Validator secara eksplisit jika hanya menggunakan $request->validate()
 
 class RegisterController extends Controller
 {
@@ -24,6 +25,7 @@ class RegisterController extends Controller
             'fakultas' => ['required', 'string', 'max:255'],
             'jurusan' => ['required', 'string', 'max:255'],
             'password' => ['required', 'min:6', 'confirmed'],
+            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         User::create([
