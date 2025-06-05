@@ -21,16 +21,15 @@
                         <a href="{{ route('aspirasi.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('aspirasi*') ? 'font-semibold underline' : '' }}">Aspiration</a>
                         {{-- Rute forum.show adalah untuk halaman forum --}}
                         <a href="{{ route('forum.show') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('forum*') ? 'font-semibold underline' : '' }}">Forum</a>
-                        {{-- Menu baru: Berita --}}
-                        <a href="{{ route('berita.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('berita*') ? 'font-semibold underline' : '' }}">Berita</a>
                         {{-- Rute profile.index adalah untuk halaman profil --}}
                         <a href="{{ route('profile.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('profile') ? 'font-semibold underline' : '' }}">Profile</a>
 
                     @elseif(Auth::user()->role === 'admin')
                         <a href="{{ route('aspirasi.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('aspirasi*') ? 'font-semibold underline' : '' }}">Aspiration</a>
                         <a href="{{ route('forum.show') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('forum*') ? 'font-semibold underline' : '' }}">Forum</a>
-                        {{-- Menu baru: Berita --}}
-                        <a href="{{ route('berita.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('berita*') ? 'font-semibold underline' : '' }}">Berita</a>
+                        {{-- Kelola Berita --}}
+                        <a href="{{ route('berita.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('berita*') ? 'font-semibold underline' : '' }}">Kelola Berita</a>
+                        {{-- Kelola User --}}
                         <a href="{{ route('admin.users.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('admin/users*') ? 'font-semibold underline' : '' }}">Kelola User</a>
                     @endif
                     <div class="flex items-center space-x-3">

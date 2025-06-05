@@ -14,7 +14,11 @@
                 @csrf
                 <textarea name="komentar" rows="3" class="w-full border rounded px-3 py-2 mb-2" placeholder="Tulis komentar..."></textarea>
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-2">Kirim</button>
-                <a href="{{ route('berita.index') }}" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-600 mt-2 transition">Kembali</a>
+                @if(Auth::user() && Auth::user()->role === 'mahasiswa')
+                    <a href="{{ route('home') }}" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-600 mt-2 transition">Kembali</a>
+                @else
+                    <a href="{{ route('berita.index') }}" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-600 mt-2 transition">Kembali</a>
+                @endif
             </form>
             <div class="space-y-4">
                 @php
@@ -37,7 +41,7 @@
         <div class="bg-gray-200 p-6 rounded">
             <div class="font-semibold text-center mb-4">RULES</div>
             <div class="space-y-2">
-                <div class="border-b border-gray-400 pb-2">1. Sampaikan aspirasi dengan sopan dan jelas.</div>
+                <div class="border-b border-gray-400 pb-2">1. Sampaikan komentar dengan sopan dan jelas.</div>
                 <div class="border-b border-gray-400 pb-2">2. Tidak mengandung SARA, hoaks, atau ujaran kebencian.</div>
                 <div class="border-b border-gray-400 pb-2">3. Gunakan bahasa yang mudah dipahami.</div>
             </div>
