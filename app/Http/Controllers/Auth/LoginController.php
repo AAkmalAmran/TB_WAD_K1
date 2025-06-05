@@ -22,11 +22,12 @@ class LoginController extends Controller
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
+            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         $remember = $request->has('remember');
 
-        if (Auth::attempt($credentials, $remember)) {
+        if (Auth::attempt($request->only('email', 'password'), $remember)) {
             $request->session()->regenerate();
             return redirect()->intended('/')->with('success', $remember 
                 ? 'Anda telah berhasil login dengan Remember Me aktif!' 
