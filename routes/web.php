@@ -25,6 +25,8 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
 
+
+
 // Rute untuk Komentar (Memerlukan Autentikasi dan Role)
 Route::middleware(['auth', 'role:admin, mahasiswa'])->group(function () {
     Route::post('/articles/{article}/comments', [CommentController::class, 'store']);

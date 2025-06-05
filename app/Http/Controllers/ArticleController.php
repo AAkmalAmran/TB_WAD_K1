@@ -5,50 +5,26 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\Berita;
+use App\Models\Komentar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
+
 
 class ArticleController extends Controller
 {
 
-    public function index()
-    {
-        $articles = Article::latest()->get();
-        return view('admin.index', compact('articles'));
-    }
+    public function index() {
+        $beritas = Berita::withCount('komentar')->with('penulis')->latest()->get();
 
-    public function create()
-    {
-        return view('admin.create');
-    }
+        // Ambil berita dari API CNN Indonesia
+        $cnnNews = [];
+        $response = \Illuminate\Support\Facades\Http::get('https://api-berita-indonesia.vercel.app/cnn/terbaru');
+        if ($response->successful()) {
+            $cnnNews = $response->json()['data']['posts'] ?? [];
+        }
 
-    public function store(Request $request)
-    {
-        //
-    }
-
-    
-    public function edit(Article $article)
-    {
-        //
-    }
-
-    public function update(Request $request, Article $article)
-    {
-        //
-    }
-
-       
-    
-
-    public function destroy(Article $article)
-    {
-       //
-    }
-
-   
-    public function show($id)
-    {
-        //
+        return view('home', compact('beritas', 'cnnNews'));
     }
 }

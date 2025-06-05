@@ -45,7 +45,7 @@
         <div class="bg-gray-200 p-6 rounded">
             <div class="font-semibold text-center mb-4">RULES!!</div>
             <div class="space-y-2">
-                <div class="border-b border-gray-400 pb-2">1. Sampaikan aspirasi dengan sopan dan jelas.</div>
+                <div class="border-b border-gray-400 pb-2">1. Buatlah berita dengan bahasa yang sopan dan jelas.</div>
                 <div class="border-b border-gray-400 pb-2">2. Tidak mengandung SARA, hoaks, atau ujaran kebencian.</div>
                 <div class="border-b border-gray-400 pb-2">3. Gunakan bahasa yang mudah dipahami.</div>
             </div>
