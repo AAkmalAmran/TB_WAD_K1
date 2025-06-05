@@ -75,8 +75,7 @@ NOCAPTCHA_SITEKEY=your_site_key
 NOCAPTCHA_SECRET=your_secret_key
 
 #### Note:
-Bisa buat key reCAPTCHA sendiri
-Link: https://www.google.com/recaptcha/admin/create 
+Bisa buat key reCAPTCHA sendiri di https://www.google.com/recaptcha/admin/create 
 
 ### 9. Jalankan Server
 
