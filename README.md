@@ -44,6 +44,7 @@ composer install
 ### 3. Copy dan Edit File Environment (env)
 
 Edit `.env` sesuai konfigurasi database lokal Anda.
+Ganti APP_LOCALE=en menjadi APP_LOCALE=id
 
 ### 4. Generate Key
 
@@ -63,7 +64,17 @@ php artisan migrate --seed
 php artisan storage:link
 ```
 
-### 7. Jalankan Server
+### 7. Install Package
+
+```bash
+composer require anhskohbo/no-captcha
+```
+
+### 8. Atur file .env
+NOCAPTCHA_SITEKEY=your_site_key
+NOCAPTCHA_SECRET=your_secret_key
+
+### 9. Jalankan Server
 
 ```bash
 php artisan serve
