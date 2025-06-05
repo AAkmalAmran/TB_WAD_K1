@@ -72,8 +72,11 @@ composer require anhskohbo/no-captcha
 
 ### 8. Atur file .env
 NOCAPTCHA_SITEKEY=your_site_key
-
 NOCAPTCHA_SECRET=your_secret_key
+
+#### Note:
+Bisa buat key reCAPTCHA sendiri
+Link: https://www.google.com/recaptcha/admin/create 
 
 ### 9. Jalankan Server
 
@@ -105,5 +108,10 @@ git push origin nama-branch-baru
 
 ## Catatan
 
-- Pastikan sudah menjalankan `php artisan storage:link` agar upload foto profil berjalan normal.
 - Untuk development, gunakan database MySQL dan sesuaikan konfigurasi di `.env`.
+
+## Link API 
+Ini adalah link API yang kami gunakan:
+- reCAPTCHA: https://github.com/anhskohbo/no-captcha
+- CNN ID: https://github.com/rizki4106/cnnindonesia-news-api?tab=readme-ov-file 
+
