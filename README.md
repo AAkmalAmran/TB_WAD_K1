@@ -72,6 +72,7 @@ composer require anhskohbo/no-captcha
 
 ### 8. Atur file .env
 NOCAPTCHA_SITEKEY=your_site_key
+
 NOCAPTCHA_SECRET=your_secret_key
 
 ### 9. Jalankan Server
