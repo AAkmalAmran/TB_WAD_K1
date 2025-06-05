@@ -57,6 +57,16 @@
                 <label for="remember" class="text-sm text-gray-600">Remember Me</label>
             </div>
 
+            {{-- Tambahkan reCAPTCHA di sini --}}
+            <div class="mb-6 flex justify-center">
+                {!! NoCaptcha::display() !!}
+            </div>
+            @if ($errors->has('g-recaptcha-response'))
+                <p class="text-red-500 text-sm mt-1 text-center">
+                    <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                </p>
+            @endif
+
             <div class="flex justify-center items-center">
                 <button type="submit"
                     class="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-all duration-200">

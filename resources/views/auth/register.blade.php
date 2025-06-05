@@ -61,7 +61,6 @@
                 @enderror
             </div>
 
-
             <div class="mb-4">
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                 <input id="password" type="password" name="password" required
@@ -71,11 +70,22 @@
                 @enderror
             </div>
 
-            <div class="mb-8">
+            <div class="mb-4"> {{-- Mengurangi margin bottom dari mb-8 menjadi mb-4 untuk reCAPTCHA --}}
                 <label for="password-confirm" class="block text-sm font-medium text-gray-700">Konfirmasi Password</label>
                 <input id="password-confirm" type="password" name="password_confirmation" required
                     class="mt-1 w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
             </div>
+
+            {{-- Tambahkan Bagian reCAPTCHA di sini --}}
+            <div class="mb-8"> {{-- Memberi margin bottom sebelum tombol submit --}}
+                {!! NoCaptcha::display() !!}
+                @if ($errors->has('g-recaptcha-response'))
+                    <p class="text-red-500 text-sm mt-1">
+                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                    </p>
+                @endif
+            </div>
+            {{-- Akhir Bagian reCAPTCHA --}}
 
             <div class="flex justify-center items-center">
                 <button type="submit"
