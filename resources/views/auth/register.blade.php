@@ -44,22 +44,66 @@
             </div>
 
             <div class="mb-4">
-                <label for="fakultas" class="block text-sm font-medium text-gray-700">Fakultas</label>
-                <input id="fakultas" type="text" name="fakultas" value="{{ old('fakultas') }}" required
-                    class="mt-1 w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 @error('fakultas') border-red-500 @enderror">
-                @error('fakultas')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                <label for="fakultas_id" class="block text-gray-700 text-sm font-bold mb-2">Fakultas:</label>
+                <select name="fakultas_id" id="fakultas_id"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline
+                    @error('fakultas_id') border-red-500 @enderror">
+                    <option value="">Pilih Fakultas</option>
+                    @foreach ($fakultas as $f)
+                        <option value="{{ $f->id }}" {{ old('fakultas_id') == $f->id ? 'selected' : '' }}>
+                            {{ $f->nama_fakultas ?? $f->nama }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('fakultas_id')
+                    <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
             <div class="mb-4">
-                <label for="jurusan" class="block text-sm font-medium text-gray-700">Program Studi</label>
-                <input id="jurusan" type="text" name="jurusan" value="{{ old('jurusan') }}" required
-                    class="mt-1 w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 @error('jurusan') border-red-500 @enderror">
-                @error('jurusan')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                <label for="jurusan_id" class="block text-gray-700 text-sm font-bold mb-2">Program Studi:</label>
+                <select name="jurusan_id" id="jurusan_id"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline
+                    @error('jurusan_id') border-red-500 @enderror">
+                    <option value="">Pilih Program Studi</option>
+                    @foreach ($jurusans as $j)
+                        <option value="{{ $j->id }}" data-fakultas="{{ $j->fakultas_id }}" {{ old('jurusan_id') == $j->id ? 'selected' : '' }}>
+                            {{ $j->nama_jurusan ?? $j->nama }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('jurusan_id')
+                    <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
                 @enderror
             </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const fakultasSelect = document.getElementById('fakultas_id');
+                    const jurusanSelect = document.getElementById('jurusan_id');
+                    const allJurusanOptions = Array.from(jurusanSelect.options);
+
+                    fakultasSelect.addEventListener('change', function () {
+                        const fakultasId = this.value;
+                        jurusanSelect.innerHTML = '';
+                        jurusanSelect.appendChild(allJurusanOptions[0].cloneNode(true)); // Option "Pilih Program Studi"
+                        allJurusanOptions.forEach(option => {
+                            if (option.value && option.getAttribute('data-fakultas') == fakultasId) {
+                                jurusanSelect.appendChild(option.cloneNode(true));
+                            }
+                        });
+                    });
+
+                    // Trigger filter on page load if old value exists
+                    if (fakultasSelect.value) {
+                        fakultasSelect.dispatchEvent(new Event('change'));
+                        // Set selected jurusan if old value exists
+                        @if(old('jurusan_id'))
+                            jurusanSelect.value = "{{ old('jurusan_id') }}";
+                        @endif
+                    }
+                });
+            </script>
 
             <div class="mb-4">
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>

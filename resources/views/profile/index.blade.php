@@ -35,7 +35,7 @@
             <h2 class="text-xl font-bold mb-1">{{ $user->nama_panggilan }}</h2>
             <p class="text-gray-500 mb-1">{{ $user->nama_panjang }}</p>
             <p class="text-gray-600 mb-1">{{ $user->email }}</p>
-            <p class="text-gray-400 text-sm mb-4">{{ $user->jurusan }}, {{ $user->fakultas }}</p>
+            <p class="text-gray-400 text-sm mb-4">{{ $user->fakultas ? $user->fakultas->nama_fakultas : '-' }}</p>
         </div>
         <!-- Kartu Kanan: Detail Profil -->
         <div class="bg-white rounded-lg shadow-md p-8 w-full md:w-2/3 flex flex-col justify-between border">
@@ -43,6 +43,10 @@
                 <tr>
                     <td class="font-semibold py-2 w-40">Full Name</td>
                     <td class="py-2">{{ $user->nama_panjang }}</td>
+                </tr>
+                <tr>
+                    <td class="font-semibold py-2">Nick Name</td>
+                    <td class="py-2">{{ $user->nama_panggilan }}</td>
                 </tr>
                 <tr>
                     <td class="font-semibold py-2">Email</td>
@@ -53,16 +57,12 @@
                     <td class="py-2">{{ $user->nim }}</td>
                 </tr>
                 <tr>
-                    <td class="font-semibold py-2">Nick Name</td>
-                    <td class="py-2">{{ $user->nama_panggilan }}</td>
+                    <td class="font-semibold py-2">Fakultas</td>
+                    <td class="py-2">{{ $user->fakultas ? $user->fakultas->nama_fakultas : '-' }}</td>
                 </tr>
                 <tr>
                     <td class="font-semibold py-2">Jurusan</td>
-                    <td class="py-2">{{ $user->jurusan }}</td>
-                </tr>
-                <tr>
-                    <td class="font-semibold py-2">Fakultas</td>
-                    <td class="py-2">{{ $user->fakultas }}</td>
+                    <td class="py-2">{{ $user->jurusan ? $user->jurusan->nama_jurusan : '-' }}</td>
                 </tr>
             </table>
             <div>

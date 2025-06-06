@@ -38,7 +38,7 @@
         <h2 class="text-xl font-bold mb-1">{{ $user->nama_panggilan }}</h2>
         <p class="text-gray-500 mb-1">{{ $user->nama_panjang }}</p>
         <p class="text-gray-600 mb-1">{{ $user->email }}</p>
-        <p class="text-gray-400 text-sm mb-4">{{ $user->jurusan }}, {{ $user->fakultas }}</p>
+        <p class="text-gray-400 text-sm mb-4">{{ $user->fakultas ? $user->fakultas->nama_fakultas : '-' }}, {{ $user->jurusan ? $user->jurusan->nama_jurusan : '-' }}</p>
         <p class="text-gray-400 text-sm mb-4">NIM: {{ $user->nim }}</p>
         <form action="{{ route('admin.users.destroy', $user) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus user ini?')">
             @csrf

@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Fakultas;
+use App\Models\Jurusan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-// Tidak perlu import Validator secara eksplisit jika hanya menggunakan $request->validate()
 
 class RegisterController extends Controller
 {
     public function showRegistrationForm()
     {
-        return view('auth.register');
+        $fakultas = Fakultas::all();
+        $jurusans = Jurusan::all();
+        return view('auth.register', compact('fakultas', 'jurusans'));
     }
 
     public function register(Request $request)
@@ -22,8 +25,8 @@ class RegisterController extends Controller
             'nama_panggilan' => ['nullable', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'nim' => ['required', 'string', 'max:20', 'unique:users,nim'],
-            'fakultas' => ['required', 'string', 'max:255'],
-            'jurusan' => ['required', 'string', 'max:255'],
+            'fakultas_id' => ['required', 'exists:fakultas,id'],
+            'jurusan_id' => ['required', 'exists:jurusans,id'],
             'password' => ['required', 'min:6', 'confirmed'],
             'g-recaptcha-response' => 'required|captcha',
         ]);
@@ -33,8 +36,8 @@ class RegisterController extends Controller
             'nama_panggilan' => $validated['nama_panggilan'] ?? null,
             'email' => $validated['email'],
             'nim' => $validated['nim'],
-            'fakultas' => $validated['fakultas'],
-            'jurusan' => $validated['jurusan'],
+            'fakultas_id' => $validated['fakultas_id'],
+            'jurusan_id' => $validated['jurusan_id'],
             'password' => Hash::make($validated['password']),
             'role' => 'mahasiswa',
         ]);
