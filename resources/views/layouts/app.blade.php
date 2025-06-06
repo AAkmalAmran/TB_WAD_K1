@@ -18,14 +18,14 @@
                 <div class="flex items-center space-x-6">
                     @if(Auth::user()->role === 'mahasiswa')
                         {{-- Rute aspirasi.index adalah untuk menampilkan daftar aspirasi --}}
-                        <a href="{{ route('aspirasi.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('aspirasi*') ? 'font-semibold underline' : '' }}">Aspiration</a>
+                        <a href="{{ route('aspirasi.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('aspirasi*') ? 'font-semibold underline' : '' }}">Aspirasi</a>
                         {{-- Rute forum.show adalah untuk halaman forum --}}
                         <a href="{{ route('forum.show') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('forum*') ? 'font-semibold underline' : '' }}">Forum</a>
                         {{-- Rute profile.index adalah untuk halaman profil --}}
                         <a href="{{ route('profile.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('profile') ? 'font-semibold underline' : '' }}">Profile</a>
 
                     @elseif(Auth::user()->role === 'admin')
-                        <a href="{{ route('aspirasi.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('aspirasi*') ? 'font-semibold underline' : '' }}">Aspiration</a>
+                        <a href="{{ route('admin.aspirasi.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('admin/aspirasi*') ? 'font-semibold underline' : '' }}">Kelola Aspirasi</a>
                         <a href="{{ route('forum.show') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('forum*') ? 'font-semibold underline' : '' }}">Forum</a>
                         {{-- Kelola Berita --}}
                         <a href="{{ route('berita.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('berita*') ? 'font-semibold underline' : '' }}">Kelola Berita</a>
@@ -51,7 +51,6 @@
                         </div>
                     </div>
                     
-
                     <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf
                         <button type="submit"
