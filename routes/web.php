@@ -6,11 +6,12 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\AspirasiController; // Pastikan ini di-import
+use App\Http\Controllers\AspirasiController; 
+use App\Http\Controllers\AdminAspirasiController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\BeritaController; // Pastikan ini di-import jika digunakan
+use App\Http\Controllers\BeritaController; 
 
 // ---------------------------------------------------- AUTH ROUTE ----------------------------------------------------
 // JANGAN DIHAPUS ATAU DIUBAH, INI PENTING UNTUK AUTENTIKASI
@@ -33,7 +34,7 @@ Route::middleware(['auth', 'role:admin, mahasiswa'])->group(function () {
 });
 
 // Rute untuk halaman Aspirasi (Untuk Mahasiswa danan Admin)
-Route::middleware(['auth', 'role:admin, mahasiswa'])->group(function () {
+Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
     // Gunakan 'only' karena edit/update/destroy untuk aspirasi akan dikelola oleh admin
     Route::resource('aspirasi', AspirasiController::class)->only(['index', 'create', 'store', 'show']);
 });

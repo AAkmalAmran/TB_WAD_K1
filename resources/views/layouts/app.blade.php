@@ -18,7 +18,7 @@
                 <div class="flex items-center space-x-6">
                     @if(Auth::user()->role === 'mahasiswa')
                         {{-- Rute aspirasi.index adalah untuk menampilkan daftar aspirasi --}}
-                        <a href="{{ route('aspirasi.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('aspirasi*') ? 'font-semibold underline' : '' }}">Aspiration</a>
+                        <a href="{{ route('aspirasi.index') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('aspirasi*') ? 'font-semibold underline' : '' }}">Aspirasi</a>
                         {{-- Rute forum.show adalah untuk halaman forum --}}
                         <a href="{{ route('forum.show') }}" class="text-gray-700 hover:text-blue-600 {{ Request::is('forum*') ? 'font-semibold underline' : '' }}">Forum</a>
                         {{-- Rute profile.index adalah untuk halaman profil --}}
