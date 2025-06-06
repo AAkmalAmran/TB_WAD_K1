@@ -10,6 +10,7 @@ use App\Http\Controllers\AspirasiController; // Pastikan ini di-import
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BeritaController; // Pastikan ini di-import jika digunakan
 
 // ---------------------------------------------------- AUTH ROUTE ----------------------------------------------------
 // JANGAN DIHAPUS ATAU DIUBAH, INI PENTING UNTUK AUTENTIKASI
@@ -25,17 +26,16 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
 
-
-
 // Rute untuk Komentar (Memerlukan Autentikasi dan Role)
 Route::middleware(['auth', 'role:admin, mahasiswa'])->group(function () {
     Route::post('/articles/{article}/comments', [CommentController::class, 'store']);
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
 });
 
-// Rute untuk halaman Aspirasi 
-Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
-    Route::resource('aspirasi', AspirasiController::class);
+// Rute untuk halaman Aspirasi (Untuk Mahasiswa danan Admin)
+Route::middleware(['auth', 'role:admin, mahasiswa'])->group(function () {
+    // Gunakan 'only' karena edit/update/destroy untuk aspirasi akan dikelola oleh admin
+    Route::resource('aspirasi', AspirasiController::class)->only(['index', 'create', 'store', 'show']);
 });
 
 // Rute untuk halaman forum
@@ -50,7 +50,6 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
 });
 
 // Rute untuk halaman berita
-Route::view('/berita', 'berita.index')->name('berita.index');
 Route::get('/berita', [App\Http\Controllers\BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/create', [App\Http\Controllers\BeritaController::class, 'create'])->name('berita.create');
 Route::post('/berita', [App\Http\Controllers\BeritaController::class, 'store'])->name('berita.store');
@@ -62,18 +61,33 @@ Route::post('/berita/{berita}/komentar', [App\Http\Controllers\BeritaController:
 // ---------------------------------------------------- ADMIN ROUTES ----------------------------------------------------
 
 // Rute Admin (Memerlukan Autentikasi dan Role Admin)
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+// PASTIKAN BARIS INI BENAR: Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+
     // Rute untuk Admin mengelola Artikel
-    Route::get('/articles', [ArticleController::class, 'index'])->name('admin.index');
-    Route::get('/articles/create', [ArticleController::class, 'create'])->name('admin.articles.create');
-    Route::post('/articles', [ArticleController::class, 'store'])->name('admin.articles.store');
-    Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('admin.articles.edit');
-    Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('admin.articles.update');
-    Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('admin.articles.destroy');
+    // Nama-nama rute ini akan menjadi admin.articles.index, dll.
+    Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+    Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+    Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+    Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
+    Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
+    Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+
 
     // Rute untuk Admin mengelola User
-    Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
-    Route::get('/users/{user}', [UserController::class, 'show'])->name('admin.users.show');
-    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
-});
+    // Nama-nama rute ini akan menjadi admin.users.index, dll.
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
+    // --- Rute untuk Admin mengelola Aspirasi ---
+    // Rute-rute ini menunjuk ke AdminAspirasiController
+    Route::get('/aspirasi', [AdminAspirasiController::class, 'index'])->name('aspirasi.index');
+    Route::get('/aspirasi/{aspirasi}', [AdminAspirasiController::class, 'show'])->name('aspirasi.show');
+    Route::get('/aspirasi/{aspirasi}/edit', [AdminAspirasiController::class, 'edit'])->name('aspirasi.edit');
+    Route::put('/aspirasi/{aspirasi}', [AdminAspirasiController::class, 'update'])->name('aspirasi.update');
+    Route::delete('/aspirasi/{aspirasi}', [AdminAspirasiController::class, 'destroy'])->name('aspirasi.destroy');
+
+    // Rute khusus untuk update status aspirasi
+    Route::patch('/aspirasi/{aspirasi}/update-status', [AdminAspirasiController::class, 'updateStatus'])->name('aspirasi.update_status');
+});

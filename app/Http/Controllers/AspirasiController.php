@@ -3,19 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aspirasi;
-use App\Models\Himpunan; // Asumsi ada model Himpunan
+use App\Models\Himpunan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; // Untuk mendapatkan data user yang login
 
 class AspirasiController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource for regular users (mahasiswa).
      */
     public function index()
     {
-        // Menampilkan semua aspirasi, bisa difilter per himpunan
-        $aspirasi = Aspirasi::with('himpunan')->latest()->paginate(10);
+        // PERBAIKAN: Hanya tampilkan aspirasi milik user yang sedang login
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Anda harus login untuk melihat aspirasi.');
+        }
+
+        $aspirasi = Aspirasi::where('user_id', Auth::id())
+                            ->with('himpunan')
+                            ->latest()
+                            ->paginate(10);
         return view('aspirasi.index', compact('aspirasi'));
     }
 
@@ -24,8 +31,12 @@ class AspirasiController extends Controller
      */
     public function create()
     {
-        // Menampilkan form untuk membuat aspirasi baru
-        $himpunans = Himpunan::all(); // Ambil semua himpunan untuk dropdown
+        // Otorisasi: Hanya user terautentikasi yang bisa membuat aspirasi
+        if (!Auth::check()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $himpunans = Himpunan::all();
         return view('aspirasi.create', compact('himpunans'));
     }
 
@@ -34,22 +45,25 @@ class AspirasiController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi input dari form
+        // Otorisasi: Hanya user terautentikasi yang bisa membuat aspirasi
+        if (!Auth::check()) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $request->validate([
             'himpunan_id' => 'required|exists:himpunans,id',
             'judul' => 'required|string|max:255',
             'konten' => 'required|string',
         ]);
 
-        // Simpan aspirasi baru dengan relasi ke user
         Aspirasi::create([
-            'user_id' => Auth::id(), // Simpan user_id dari user yang login
+            'user_id' => Auth::id(),
             'mahasiswa_nim' => Auth::user()->nim,
-            'mahasiswa_nama' => Auth::user()->nama_panjang, // Sesuaikan field nama di model User
+            'mahasiswa_nama' => Auth::user()->nama_panjang,
             'himpunan_id' => $request->himpunan_id,
             'judul' => $request->judul,
             'konten' => $request->konten,
-            'status' => 'pending',
+            'status' => 'pending', // Status awal saat aspirasi baru dibuat
         ]);
 
         return redirect()->route('aspirasi.index')->with('success', 'Aspirasi berhasil dikirim!');
@@ -60,9 +74,11 @@ class AspirasiController extends Controller
      */
     public function show(Aspirasi $aspirasi)
     {
-        // Menampilkan detail aspirasi
+        // Otorisasi: Hanya pemilik aspirasi yang bisa melihat detail
+        if (!Auth::check() || Auth::user()->id !== $aspirasi->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return view('aspirasi.show', compact('aspirasi'));
     }
-
-    // Anda bisa menambahkan method lain seperti edit, update, destroy jika diperlukan
 }
