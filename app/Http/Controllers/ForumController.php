@@ -45,10 +45,8 @@ class ForumController extends Controller
 
         if ($vote) {
             if ($vote->type === 'upvote') {
-                // Sudah upvote, tidak boleh upvote lagi
                 return back()->with('error', 'Anda sudah memberikan upvote.');
             } else {
-                // Ganti downvote ke upvote
                 $forum->increment('upvote');
                 $forum->decrement('downvote');
                 $vote->update(['type' => 'upvote']);
@@ -72,10 +70,8 @@ class ForumController extends Controller
 
         if ($vote) {
             if ($vote->type === 'downvote') {
-                // Sudah downvote, tidak boleh downvote lagi
                 return back()->with('error', 'Anda sudah memberikan downvote.');
             } else {
-                // Ganti upvote ke downvote
                 $forum->increment('downvote');
                 $forum->decrement('upvote');
                 $vote->update(['type' => 'downvote']);
@@ -91,5 +87,15 @@ class ForumController extends Controller
         $forum->increment('downvote');
         return back();
     }
-}
 
+    // ✅ Fungsi hapus topik (dengan verifikasi user)
+    public function destroy(Forum $forum)
+    {
+        if (Auth::id() !== $forum->user_id) {
+            return redirect()->route('forum.index')->with('error', 'Kamu tidak punya izin untuk menghapus topik ini.');
+        }
+
+        $forum->delete();
+        return redirect()->route('forum.index')->with('success', 'Topik berhasil dihapus.');
+    }
+}
