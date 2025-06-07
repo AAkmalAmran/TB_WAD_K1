@@ -38,7 +38,10 @@ class Aspirasi extends Model
     {
         return $this->belongsTo(Himpunan::class); // Asumsi ada model Himpunan
     }
-
+    public function comments()
+    {
+        return $this->hasMany(Comment::class); // Asumsi ada model Himpunan
+    }
     public function user() {
         return $this->belongsTo(User::class);
     }

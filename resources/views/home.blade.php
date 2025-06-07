@@ -73,7 +73,7 @@
     @endforelse
 </div>
 
-<div class="bg-white p-6 rounded shadow mt-8">
+<!-- <div class="bg-white p-6 rounded shadow mt-8">
     <h2 class="text-xl font-bold mb-4">Berita CNN Indonesia Terbaru</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @forelse (array_slice($cnnNews, 0, 4) as $news)
@@ -91,6 +91,6 @@
             </div>
         @endforelse
     </div>
-</div>
+</div> -->
 @endauth
 @endsection
