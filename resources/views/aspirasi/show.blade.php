@@ -57,7 +57,7 @@
                             required
                         >{{ old('isi') }}</textarea>
                         @error('isi')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            <p class="text-red-500 text-sm mt-1">$message</p>
                         @enderror
                     </div>
                     <button
