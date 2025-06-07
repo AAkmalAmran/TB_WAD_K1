@@ -92,3 +92,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Rute khusus untuk update status aspirasi
     Route::patch('/aspirasi/{aspirasi}/update-status', [AdminAspirasiController::class, 'updateStatus'])->name('aspirasi.update_status');
 });
+
+// ---------------------------------------------------- END ADMIN ROUTES ----------------------------------------------------
+// ---------------------------------------------------- END OF FILE ----------------------------------------------------
