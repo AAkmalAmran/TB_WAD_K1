@@ -89,7 +89,16 @@
                         <tr>
                             <td class="py-2 px-4 border-b">{{ $aspirasi->judul }}</td>
                             <td class="py-2 px-4 border-b">{{ $aspirasi->created_at->format('d M Y') }}</td>
-                            <td class="py-2 px-4 border-b">{{ ucfirst($aspirasi->status) }}</td>
+                            <td class="py-2 px-4 border-b">
+                                <span class="font-semibold
+                                    @if($aspirasi->status == 'pending') text-yellow-600
+                                    @elseif($aspirasi->status == 'diproses') text-blue-600
+                                    @elseif($aspirasi->status == 'diterima') text-green-600
+                                    @else text-red-600
+                                    @endif">
+                                    {{ ucfirst($aspirasi->status) }}
+                                </span>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
