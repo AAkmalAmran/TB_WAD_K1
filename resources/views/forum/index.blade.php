@@ -20,21 +20,31 @@
                     $userVote = Auth::check() ? \App\Models\ForumVote::where('user_id', Auth::id())->where('forum_id', $forum->id)->first() : null;
                 @endphp
 
-                <form action="{{ route('forum.upvote', $forum->id) }}" method="POST" class="inline">
+                <form action="{{ route('forum.upvote', parameters: $forum->id) }}" method="POST" class="inline">
                     @csrf
                     <button {{ $userVote && $userVote->type === 'upvote' ? 'disabled' : '' }} class="flex items-center gap-1 bg-green-100 hover:bg-green-200 text-green-700 px-3 py-1 rounded transition font-semibold {{ $userVote && $userVote->type === 'upvote' ? 'opacity-50 cursor-not-allowed' : '' }}">
                         👍 <span>{{ $forum->upvote }}</span>
                     </button>
                 </form>
+
                 <form action="{{ route('forum.downvote', $forum->id) }}" method="POST" class="inline">
                     @csrf
                     <button {{ $userVote && $userVote->type === 'downvote' ? 'disabled' : '' }} class="flex items-center gap-1 bg-red-100 hover:bg-red-200 text-red-700 px-3 py-1 rounded transition font-semibold {{ $userVote && $userVote->type === 'downvote' ? 'opacity-50 cursor-not-allowed' : '' }}">
                         👎 <span>{{ $forum->downvote }}</span>
                     </button>
                 </form>
-                {{-- Tambahkan tombol lihat detail jika ada route forum.show --}}
+
                 @if(Route::has('forum.show'))
                     <a href="{{ route('forum.show', $forum->id) }}" class="ml-auto text-blue-600 hover:underline font-medium">Lihat Detail</a>
+                @endif
+
+                {{-- # Tombol Delete (Hanya untuk pembuat topik) --}}
+                @if(Auth::check() && Auth::id() === $forum->user_id)
+                    <form action="{{ route('forum.destroy', $forum->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus topik ini?')" class="ml-2">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-600 hover:text-red-800 font-semibold">🗑️ Hapus</button>
+                    </form>
                 @endif
             </div>
         </div>

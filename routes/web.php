@@ -57,6 +57,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/forum/store', [ForumController::class, 'store'])->name('forum.store');
     Route::post('/forum/{forum}/upvote', [ForumController::class, 'upvote'])->name('forum.upvote');
     Route::post('/forum/{forum}/downvote', [ForumController::class, 'downvote'])->name('forum.downvote');
+    Route::delete('/forum/{forum}', [ForumController::class, 'destroy'])->name('forum.destroy');
+
 });
 
 
