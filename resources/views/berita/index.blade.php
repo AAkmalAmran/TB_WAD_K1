@@ -34,6 +34,16 @@
                    onclick="event.stopPropagation()">
                     <span class="material-icons text-base">chat_bubble_outline</span> {{ $berita->jumlah_komentar ?? 0 }}
                 </a>
+                @auth
+                    @if(auth()->user()->role === 'admin')
+                        <a href="{{ route('berita.edit', $berita->id) }}" class="text-yellow-600 hover:underline ml-2" onclick="event.stopPropagation()">Edit</a>
+                        <form action="{{ route('berita.destroy', $berita->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin hapus berita ini?');" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600 hover:underline ml-2 bg-transparent border-none p-0 cursor-pointer" onclick="event.stopPropagation()">Hapus</button>
+                        </form>
+                    @endif
+                @endauth
             </div>
         </div>
         @empty

@@ -61,11 +61,11 @@
             <div class="mb-6 flex justify-center">
                 {!! NoCaptcha::display() !!}
             </div>
-            @if ($errors->has('g-recaptcha-response'))
+            <!-- @if ($errors->has('g-recaptcha-response'))
                 <p class="text-red-500 text-sm mt-1 text-center">
                     <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
                 </p>
-            @endif
+            @endif -->
 
             <div class="flex justify-center items-center">
                 <button type="submit"
