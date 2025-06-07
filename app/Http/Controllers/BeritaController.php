@@ -57,4 +57,41 @@ class BeritaController extends Controller
         Berita::where('id', $id)->increment('jumlah_komentar');
         return redirect()->route('berita.komentar', $id)->with('success', 'Komentar berhasil ditambahkan.');
     }
+
+    public function edit($id)
+    {
+        $berita = Berita::findOrFail($id);
+        // Hanya admin yang boleh edit
+        if (!auth()->user() || auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+        return view('berita.edit', compact('berita'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $berita = Berita::findOrFail($id);
+        if (!auth()->user() || auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+        ]);
+        $berita->update([
+            'judul' => $request->judul,
+            'isi' => $request->isi,
+        ]);
+        return redirect()->route('berita.index')->with('success', 'Berita berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $berita = Berita::findOrFail($id);
+        if (!auth()->user() || auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+        $berita->delete();
+        return redirect()->route('berita.index')->with('success', 'Berita berhasil dihapus.');
+    }
 }
