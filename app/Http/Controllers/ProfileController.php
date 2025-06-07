@@ -15,12 +15,6 @@ class ProfileController extends Controller
         return view('profile.index', compact('user'));
     }
 
-    public function show()
-    {
-        $user = auth()->user();
-        return view('profile.show', compact('user'));
-    }
-
     public function edit()
     {
         $user = auth()->user();
@@ -54,17 +48,5 @@ class ProfileController extends Controller
         return redirect()->route('profile.index')->with('success', 'Profil berhasil diupdate');
     }
 
-    public function delete()
-    {
-        $user = auth()->user();
-        return view('profile.delete', compact('user'));
-    }
 
-    public function destroy()
-    {
-        $user = auth()->user();
-        $user->delete();
-        auth()->logout();
-        return redirect('/')->with('success', 'Akun berhasil dihapus');
-    }
 }

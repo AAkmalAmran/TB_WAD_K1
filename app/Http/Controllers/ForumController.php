@@ -88,7 +88,6 @@ class ForumController extends Controller
         return back();
     }
 
-    // ✅ Fungsi hapus topik (dengan verifikasi user)
     public function destroy(Forum $forum)
     {
         if (Auth::id() !== $forum->user_id) {
