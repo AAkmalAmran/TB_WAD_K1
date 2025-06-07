@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('nama_panggilan')->nullable();
             $table->string('email')->unique();
             $table->string('nim')->unique();
-            $table->string('fakultas');
-            $table->string('jurusan');
+            $table->foreignId('fakultas_id')->constrained('fakultas')->onDelete('cascade');
+            $table->foreignId('jurusan_id')->constrained('jurusans')->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('foto')->nullable();

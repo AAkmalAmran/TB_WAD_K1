@@ -29,12 +29,12 @@ class User extends Authenticatable
         'nama_panggilan',
         'email',
         'nim',
-        'fakultas',
-        'jurusan',
+        'fakultas_id',
+        'jurusan_id',
         'password',
         'foto',
         'role',
-    ];    
+    ];       
 
     /**
      * The attributes that should be hidden for serialization.
@@ -71,5 +71,15 @@ class User extends Authenticatable
 
     public function aspirasi() {
         return $this->hasMany(Aspirasi::class);
+    }
+
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class, 'jurusan_id', 'id');
+    }
+    
+    public function fakultas()
+    {
+        return $this->belongsTo(Fakultas::class, 'fakultas_id', 'id');
     }
 }

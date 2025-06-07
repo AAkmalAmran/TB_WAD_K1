@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Jurusan;
+use App\Models\Fakultas;
 
 class ProfileController extends Controller
 {
@@ -22,7 +24,9 @@ class ProfileController extends Controller
     public function edit()
     {
         $user = auth()->user();
-        return view('profile.edit', compact('user'));
+        $jurusans = \App\Models\Jurusan::all();
+        $fakultas = \App\Models\Fakultas::all();
+        return view('profile.edit', compact('user', 'jurusans', 'fakultas'));
     }
 
     public function update(Request $request)
@@ -32,9 +36,6 @@ class ProfileController extends Controller
         $validated = $request->validate([
             'nama_panjang' => 'required',
             'nama_panggilan' => 'required',
-            'nim' => 'required',
-            'fakultas' => 'required',
-            'jurusan' => 'required',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // foto opsional
             // password opsional
             

@@ -8,35 +8,13 @@ use App\Models\Comment;
 
 class CommentController extends Controller
 {
-     /**
-     * - Validasi input komentar ('comment' wajib diisi dan maksimal 1000 karakter)
-     * - Simpan komentar baru pada artikel tertentu, relasikan dengan user yang sedang login
-     * - Tampilkan pesan sukses dan redirect ke halaman detail artikel
-     */
-    public function store(Request $request, Article $article)
+
+    public function store(Request $request)
     {
-        
-        $request->validate([
-            'comment_content' => 'required|string|max:1000'
-        ]);
 
-        // $validatedData = $request->validate([
-        //     'comment_content' => 'required|string',
-        // ])
-
-        $articleData = $request->only('comment_content');
-
-        auth()->user()->articles()->create($articleData);
-
-        session()->flash('success', 'Komentar berhasil diunggah');
-        return redirect()->route('admin.index');
     }
 
     public function destroy(Comment $comment) {
-        $articleId = $comment->article_id;
-        $comment->delete();
-    
-        session()->flash('success', 'Comment berhasil dihapus!');
-        return redirect()->route('articles.show', ['article' => $articleId]);
+
     }
 }

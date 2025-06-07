@@ -45,13 +45,12 @@
     @endauth
 </div>
 
+@auth
 <div class="bg-white p-6 rounded shadow">
     <h2 class="text-xl font-bold mb-4">Berita Seputar Telkom University Terbaru</h2>
-    <!-- Daftar Berita -->
     @php
         $beritaList = $beritas;
         if (!request()->query('sort')) {
-            // Sort by jumlah_komentar terbanyak (populer) untuk "Semua"
             $beritaList = $beritas->sortByDesc('jumlah_komentar');
         }
     @endphp
@@ -93,4 +92,5 @@
         @endforelse
     </div>
 </div>
+@endauth
 @endsection

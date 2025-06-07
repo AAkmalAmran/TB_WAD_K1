@@ -19,7 +19,6 @@
         function {{ $closeFunction }}() {
             document.getElementById('{{ $id }}').classList.add('hidden');
         }
-
         setTimeout(function() {
             var el = document.getElementById('{{ $id }}');
             if (el) el.classList.add('hidden');
@@ -27,37 +26,42 @@
     </script>
 @endif
 
-@section('content')
 <div class="container mx-auto p-6">
-    <h2 class="text-2xl font-bold mb-6">Daftar Mahasiswa</h2>
-    <table class="min-w-full bg-white rounded shadow">
-        <thead>
-            <tr>
-                <th class="py-2 px-4 border-b">Nama</th>
-                <th class="py-2 px-4 border-b">NIM</th>
-                <th class="py-2 px-4 border-b">Fakultas</th>
-                <th class="py-2 px-4 border-b">Jurusan</th>
-                <th class="py-2 px-4 border-b">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($users as $user)
-            <tr>
-                <td class="py-4 px-4 border-b">{{ $user->nama_panjang }}</td>
-                <td class="py-4 px-4 border-b">{{ $user->nim }}</td>
-                <td class="py-4 px-4 border-b">{{ $user->fakultas }}</td>
-                <td class="py-4 px-4 border-b">{{ $user->jurusan }}</td>
-                <td class="py-4 px-4 border-b">
-                    <a href="{{ route('admin.users.show', $user) }}" class="text-blue-600 hover:underline">Detail</a>
-                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus user ini?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:underline ml-2">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <h2 class="text-3xl font-bold mb-8 text-gray-800 text-center">Daftar Mahasiswa</h2>
+    <div class="overflow-x-auto rounded-lg shadow">
+        <table class="min-w-full bg-white rounded-lg">
+            <thead class="bg-blue-50">
+                <tr>
+                    <th class="py-3 px-6 text-left font-semibold text-gray-700">Nama</th>
+                    <th class="py-3 px-6 text-left font-semibold text-gray-700">NIM</th>
+                    <th class="py-3 px-6 text-left font-semibold text-gray-700">Fakultas</th>
+                    <th class="py-3 px-6 text-left font-semibold text-gray-700">Jurusan</th>
+                    <th class="py-3 px-6 text-center font-semibold text-gray-700">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($users as $user)
+                <tr class="hover:bg-blue-50 transition">
+                    <td class="py-4 px-6 border-b border-gray-100">{{ $user->nama_panjang }}</td>
+                    <td class="py-4 px-6 border-b border-gray-100">{{ $user->nim }}</td>
+                    <td class="py-4 px-6 border-b border-gray-100">{{ $user->fakultas ? $user->fakultas->nama_fakultas : '-' }}</td>
+                    <td class="py-4 px-6 border-b border-gray-100">{{ $user->jurusan ? $user->jurusan->nama_jurusan : '-' }}</td>
+                    <td class="py-4 px-6 border-b border-gray-100 text-center">
+                        <a href="{{ route('admin.users.show', $user) }}" class="inline-block text-blue-600 hover:text-blue-800 font-semibold transition">Detail</a>
+                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus user ini?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="inline-block text-red-600 hover:text-red-800 font-semibold ml-4 transition">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="5" class="py-6 px-6 text-center text-gray-500">Belum ada data mahasiswa.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 </div>
 @endsection

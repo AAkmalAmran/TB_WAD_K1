@@ -12,17 +12,8 @@ class AspirasiController extends Controller
     /**
      * Display a listing of the resource for regular users (mahasiswa).
      */
-    public function index()
-    {
-        // PERBAIKAN: Hanya tampilkan aspirasi milik user yang sedang login
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Anda harus login untuk melihat aspirasi.');
-        }
-
-        $aspirasi = Aspirasi::where('user_id', Auth::id())
-                            ->with('himpunan')
-                            ->latest()
-                            ->paginate(10);
+    public function index() {
+        $aspirasi = Aspirasi::with(['himpunan', 'user'])->latest()->paginate(10);
         return view('aspirasi.index', compact('aspirasi'));
     }
 
@@ -74,10 +65,10 @@ class AspirasiController extends Controller
      */
     public function show(Aspirasi $aspirasi)
     {
-        // Otorisasi: Hanya pemilik aspirasi yang bisa melihat detail
-        if (!Auth::check() || Auth::user()->id !== $aspirasi->user_id) {
-            abort(403, 'Unauthorized action.');
-        }
+        // // Otorisasi: Hanya pemilik aspirasi yang bisa melihat detail
+        // if (!Auth::check() || Auth::user()->id !== $aspirasi->user_id) {
+        //     abort(403, 'Unauthorized action.');
+        // }
 
         return view('aspirasi.show', compact('aspirasi'));
     }
