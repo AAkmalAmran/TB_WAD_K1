@@ -87,7 +87,7 @@
                                 <div class="flex-shrink-0">
                                     @if($comment->user->foto)
                                         <img
-                                            src="{{ asset('storage/' . $comment->user->foto) }}"
+                                            src="{{ asset('storage/public/' . $comment->user->foto) }}"
                                             alt="{{ $comment->user->nama_panggilan }}"
                                             class="w-10 h-10 rounded-full object-cover"
                                         >
