@@ -69,7 +69,9 @@ class AspirasiController extends Controller
         // if (!Auth::check() || Auth::user()->id !== $aspirasi->user_id) {
         //     abort(403, 'Unauthorized action.');
         // }
-
+        $aspirasi = $aspirasi->load(['himpunan', 'user', 'comments.user']); // Memuat relasi himpunan, user, dan komentar dengan user
         return view('aspirasi.show', compact('aspirasi'));
+
     }
+
 }
