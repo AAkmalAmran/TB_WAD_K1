@@ -37,7 +37,15 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
 });
 
 // Rute untuk halaman forum
-Route::get('/forum', [ForumController::class, 'index'])->name('forum.show');
+#Route::get('/forum', [ForumController::class, 'index'])->name('forum.show');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/forum', [ForumController::class, 'index'])->name('forum.index');
+    Route::get('/forum/create', [ForumController::class, 'create'])->name('forum.create');
+    Route::post('/forum/store', [ForumController::class, 'store'])->name('forum.store');
+    Route::post('/forum/{forum}/upvote', [ForumController::class, 'upvote'])->name('forum.upvote');
+    Route::post('/forum/{forum}/downvote', [ForumController::class, 'downvote'])->name('forum.downvote');
+});
+
 
 // Rute untuk halaman profil
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
