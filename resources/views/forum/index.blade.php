@@ -1,28 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto p-6">
-    @if(session('error') || session('success'))
-        @php
-            $type = session('error') ? 'error' : 'success';
-            $message = session($type);
-            $bgColor = $type === 'error' ? 'bg-red-500' : 'bg-green-500';
-            $id = $type . 'Message';
-            $closeFunction = 'close' . ucfirst($type) . 'Message';
-        @endphp
+<div class="container">
+    <h1>Forum Diskusi General</h1>
+    <a href="{{ route('forum.create') }}" class="btn btn-primary mb-3">+ Buat Topik Baru</a>
 
-        <div id="{{ $id }}" class="{{ $bgColor }} text-white p-4 rounded-lg mb-6 relative">
-            <span>{{ $message }}</span>
-            <button class="absolute right-5 text-white font-bold" onclick="{{ $closeFunction }}()">X</button>
+    @foreach($forums as $forum)
+        <div class="card mb-3">
+            <div class="card-body">
+                <h4>{{ $forum->judul }}</h4>
+                <p class="text-muted">Kategori: {{ $forum->kategori ?? 'Umum' }} | oleh {{ $forum->user->name }}</p>
+                <p>{{ Str::limit($forum->isi, 150) }}</p>
+                
+                <form action="{{ route('forum.upvote', $forum->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    <button class="btn btn-success btn-sm">👍 {{ $forum->upvote }}</button>
+                </form>
+
+                <form action="{{ route('forum.downvote', $forum->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    <button class="btn btn-danger btn-sm">👎 {{ $forum->downvote }}</button>
+                </form>S
+            </div>
         </div>
-
-        <script>
-            function {{ $closeFunction }}() {
-                document.getElementById('{{ $id }}').classList.add('hidden');
-            }
-            setTimeout(function() {
-                var el = document.getElementById('{{ $id }}');
-                if (el) el.classList.add('hidden');
-            }, 5000);
-        </script>
-    @endif
+    @endforeach
+</div>
+@endsection
