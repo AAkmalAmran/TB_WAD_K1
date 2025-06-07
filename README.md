@@ -32,7 +32,7 @@ Anggota Kelompok 1 SI4708:
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/username/TB_WAD_SI4708_K1.git
+git clone https://github.com/AAkmalAmran/TB_WAD_K1.git
 ```
 
 ### 2. Install Dependency
