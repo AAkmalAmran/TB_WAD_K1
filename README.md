@@ -59,6 +59,16 @@ php artisan key:generate
 php artisan migrate --seed
 ```
 
+Atau
+
+```bash
+php artisan migrate:fresh
+```
+
+```bash
+php artisan db:seed
+```
+
 ### 6. Buat Storage Link
 
 ```bash
